@@ -4,11 +4,11 @@ import (
 	"context"
 	"flag"
 	"fmt"
+	"hash/fnv"
 	"io"
 	"log"
 	"net/http"
 	"time"
-	"hash/fnv"
 
 	"github.com/roman-mazur/design-practice-2-template/httptools"
 	"github.com/roman-mazur/design-practice-2-template/signal"
@@ -104,7 +104,7 @@ func main() {
 		go func() {
 			for range time.Tick(10 * time.Second) {
 				if health(server) {
-					result[i] = server
+					poolOfHealthyServers[i] = server
 				}
 				log.Println(server, health(server))
 			}
